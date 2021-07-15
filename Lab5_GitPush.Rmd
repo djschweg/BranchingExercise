@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ---
 title: "Lab 5 Git Push"
 author: "David J. Schwegman"
@@ -17,3 +18,24 @@ ggplot(mpg, aes(x = trans, y = cty)) + geom_boxplot(fill = "red")
 
 ```
 
+=======
+---
+title: "Lab 5 Git Push"
+author: "David J. Schwegman"
+date: "7/14/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r}
+mpg
+
+ggplot(mpg, aes(x = trans, y = cty)) + geom_boxplot(fill = "red")
+
+```
+
+>>>>>>> 378563237669f43dacbb5f128825c9cc2f82d58b
