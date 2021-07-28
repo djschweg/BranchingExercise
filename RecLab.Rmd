@@ -1,0 +1,67 @@
+---
+title: "Rectangling Lab"
+author: "David J. Schwegman"
+date: "7/28/2021"
+output:
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(rvest)
+library(repurrrsive)
+library(dplyr)
+library(tidyverse)
+
+
+listviewer::jsonedit(gh_users)
+
+```
+
+## 1) 
+
+**a) Explain or describe nested Lists.  (Three or four sentences)**
+
+A list is a list of a list. It is a list that contains different "types" of data, e.g., character or string data, numeric data, lists itself (i.e., list of a elements of the same data type)
+
+
+**b) Open and explore data for Git Hub repos by running the following code gh_repo.  Comment on the structure and arrangement of the data (Two or three sentences)**
+
+This ***repos()** command pulls a disorganized nested list for github users that contains a large amount of character, numeric, and logic data. For example, for each users, there appears to be their numeric account id, their name, their full name, their avatar url, among other variables. 
+
+
+```{r}
+gh_repos
+```
+
+**c)  In two or three sentences, explain what happens to the data when you run the code**
+
+When you run each code, each GITHUB user in the gh_repos repository is stored as an array/list in listviewer, and you are able to see each list within the larger nested list. Specifically, it produces a tibble that is is 6x1, where each row represents a nested list of all the information for a single GITHUB user.  
+
+```{r}
+repos <- tibble(repo = gh_repos)
+repos
+
+```
+
+
+***Describe the data representation when the listserver tool is applied. And go into detail explaining why we have a nested List configuration. What do the numbers 30 and 68 represent ? (6 or 7 sentences)***
+
+```{r}
+listviewer::jsonedit(gh_repos)
+```
+
+This produces a data frame that is fairly complicated because each column variable is also a list, and the numbers refers to the lists within each list (i.e., the nested lists). Thus each "top" column is a nested list of 30 lists, but those lists contain further lists, i.e., the first list in the list of 30 contains 68 lists. Each of these lists contain different types of data -- a lot of HTML/ULR data, a lot of numeric and logic data, etc. Essentially, this dataframe contains 5 different GITHUB users (main array 1 - 5), the each contain 30 different nested lists (except user 3 who only has 26 nested lists), and then each of these nested lists contains 68 further nested lists. 
+
+
+***Use and show R unnesting code to produce the tibble below***
+
+```{r}
+tibble(repo = gh_repos)%>%
+  unnest_auto(repo)%>%
+  unnest_auto(repo) -> new
+new 
+```
+
+Note that this is also a fairly complicated tibble. 
